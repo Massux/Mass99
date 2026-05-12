@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request for Proposal – Elite Ballroom Naperville</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #2a7c72;
+      --teal-dark: #1e5e56;
+      --gold: #c9a84c;
+      --black: #1a1a1a;
+      --cream: #f0ebe0;
+      --cream-dark: #e8e2d4;
+      --light-border: #d6cfc0;
+      --red: #cc3333;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── HEADER ─── */
+    .site-header {
+      background: var(--cream);
+      text-align: center;
+      padding: 28px 20px 20px;
+      border-bottom: 3px solid var(--teal);
+    }
+    .site-header img.logo {
+      height: 90px;
+      width: auto;
+      object-fit: contain;
+    }
+    .site-header .city {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 6px;
+      color: #555;
+      margin-top: 8px;
+    }
+
+    /* ─── PAGE LAYOUT ─── */
+    .page-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      position: relative;
+    }
+
+    /* Decorative side borders (matching the ornate pattern in mockup) */
+    .page-wrap::before,
+    .page-wrap::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 72px;
+      background-image: repeating-linear-gradient(
+        180deg,
+        transparent 0px,
+        transparent 18px,
+        rgba(180,165,130,0.12) 18px,
+        rgba(180,165,130,0.12) 19px
+      );
+      pointer-events: none;
+    }
+    .page-wrap::before { left: 0; }
+    .page-wrap::after  { right: 0; }
+
+    /* ─── FORM CARD ─── */
+    .form-card {
+      background: transparent;
+      padding: 36px 0 0;
+    }
+
+    .form-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    /* ─── FORM FIELDS ─── */
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field select,
+    .field input[type="text"],
+    .field input[type="email"],
+    .field input[type="tel"],
+    .field textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--light-border);
+      padding: 13px 14px;
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      color: #444;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    .field select:focus,
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--teal);
+      background: rgba(255,255,255,0.85);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* placeholder styling */
+    .field input::placeholder,
+    .field textarea::placeholder,
+    .field select option[value=""] {
+      color: #888;
+    }
+
+    /* Required asterisk inline in placeholder — shown via label overlay approach */
+    .field-label {
+      position: relative;
+    }
+    .req {
+      color: var(--red);
+      font-size: 13px;
+      margin-left: 2px;
+    }
+
+    /* We use a floating placeholder trick for the asterisk */
+    .field-wrap {
+      position: relative;
+    }
+    .field-wrap .placeholder-text {
+      position: absolute;
+      top: 13px;
+      left: 14px;
+      font-size: 13px;
+      color: #888;
+      pointer-events: none;
+      font-family: 'Montserrat', sans-serif;
+      transition: opacity 0.15s;
+    }
+    .field-wrap .placeholder-text .req { color: var(--red); }
+    .field-wrap input:focus + .placeholder-text,
+    .field-wrap input:not(:placeholder-shown) + .placeholder-text,
+    .field-wrap textarea:focus + .placeholder-text,
+    .field-wrap textarea:not(:placeholder-shown) + .placeholder-text {
+      opacity: 0;
+    }
+
+    /* ─── SUBMIT BUTTON ─── */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      background: var(--teal);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 17px;
+      border: none;
+      cursor: pointer;
+      margin-top: 28px;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: var(--teal-dark); }
+
+    /* ─── SUCCESS MESSAGE ─── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 48px 20px;
+    }
+    .success-msg .check {
+      font-size: 48px;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+    .success-msg h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .success-msg p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* ─── BACK LINK ─── */
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      font-weight: 600;
+      border-bottom: 1px solid var(--teal);
+      padding-bottom: 2px;
+    }
+
+    /* ─── FOOTER ─── */
+    .form-footer {
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 11px;
+      color: #999;
+      border-top: 1px solid var(--light-border);
+      margin-top: 40px;
+    }
+    .form-footer a { color: var(--teal); }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header class="site-header">
+  <a href="index.html">
+    <img class="logo" src="BALLROOM_LOGO_F.png" alt="Elite Ballroom Naperville" />
+  </a>
+  <p class="city">N A P E R V I L L E , I L</p>
+</header>
+
+<!-- ─── FORM ─── -->
+<div class="page-wrap">
+  <div class="form-card">
+    <p class="form-title">Request for Proposal</p>
+
+    <div id="formContainer">
+
+      <!-- Event Type -->
+      <div class="field">
+        <select id="eventType" required>
+          <option value="" disabled selected>Event Type *</option>
+          <option>Wedding</option>
+          <option>Corporate Event</option>
+          <option>Quinceañera</option>
+          <option>Bar / Bat Mitzvah</option>
+          <option>Baby Shower</option>
+          <option>Retirement Celebration</option>
+          <option>Sweet 16 / Cotillion</option>
+          <option>Birthday / Anniversary</option>
+          <option>Memorial</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <!-- Preferred Date -->
+      <div class="field">
+        <select id="prefDate" required>
+          <option value="" disabled selected>Preferred Date *</option>
+          <option>January 2026</option>
+          <option>February 2026</option>
+          <option>March 2026</option>
+          <option>April 2026</option>
+          <option>May 2026</option>
+          <option>June 2026</option>
+          <option>July 2026</option>
+          <option>August 2026</option>
+          <option>September 2026</option>
+          <option>October 2026</option>
+          <option>November 2026</option>
+          <option>December 2026</option>
+          <option>2027 or Later</option>
+          <option>Flexible / Undecided</option>
+        </select>
+      </div>
+
+      <!-- Is Your Date Flexible -->
+      <div class="field field-wrap">
+        <input type="text" id="flexible" placeholder=" " />
+        <span class="placeholder-text">Is Your Date Flexible<span class="req">*</span></span>
+      </div>
+
+      <!-- Estimated Guests -->
+      <div class="field field-wrap">
+        <input type="text" id="guests" placeholder=" " />
+        <span class="placeholder-text">Estimated Number of Guests<span class="req">*</span></span>
+      </div>
+
+      <!-- First Name -->
+      <div class="field field-wrap">
+        <input type="text" id="firstName" placeholder=" " />
+        <span class="placeholder-text">First Name<span class="req">*</span></span>
+      </div>
+
+      <!-- Last Name -->
+      <div class="field field-wrap">
+        <input type="text" id="lastName" placeholder=" " />
+        <span class="placeholder-text">Last Name<span class="req">*</span></span>
+      </div>
+
+      <!-- Email -->
+      <div class="field field-wrap">
+        <input type="email" id="email" placeholder=" " />
+        <span class="placeholder-text">Email<span class="req">*</span></span>
+      </div>
+
+      <!-- Phone -->
+      <div class="field field-wrap">
+        <input type="tel" id="phone" placeholder=" " />
+        <span class="placeholder-text">Phone<span class="req">*</span></span>
+      </div>
+
+      <!-- City -->
+      <div class="field field-wrap">
+        <input type="text" id="city" placeholder=" " />
+        <span class="placeholder-text">City<span class="req">*</span></span>
+      </div>
+
+      <!-- Zip Code -->
+      <div class="field field-wrap">
+        <input type="text" id="zip" placeholder=" " />
+        <span class="placeholder-text">Zip Code<span class="req"> *</span></span>
+      </div>
+
+      <!-- Additional Comments -->
+      <div class="field field-wrap">
+        <textarea id="comments" placeholder=" "></textarea>
+        <span class="placeholder-text">Additional Comments<span class="req">*</span></span>
+      </div>
+
+      <!-- How Did You Hear -->
+      <div class="field field-wrap">
+        <textarea id="referral" placeholder=" " style="min-height:80px;"></textarea>
+        <span class="placeholder-text">How Did You Hear About Elite</span>
+      </div>
+
+      <button class="btn-submit" onclick="submitForm()">Check Availability</button>
+    </div>
+
+    <!-- Success State -->
+    <div class="success-msg" id="successMsg">
+      <div class="check">✓</div>
+      <h2>Thank You!</h2>
+      <p>Your proposal request has been received.<br>Our team will be in touch with you shortly.</p>
+      <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="form-footer">
+  <a href="tel:6307995900">(630) 799-5900</a> &nbsp;·&nbsp; 1823 Abriter Ct, Naperville IL 60563<br>
+  <br>© 2025 Embassy Elite Ballroom. All rights reserved.
+</div>
+
+<script>
+  function submitForm() {
+    const required = ['eventType','prefDate','flexible','guests','firstName','lastName','email','phone','city','zip','comments'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = '#cc3333';
+        valid = false;
+      } else {
+        el.style.borderColor = '';
+      }
+    });
+    if (!valid) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
